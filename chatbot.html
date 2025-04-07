@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GitGuide AI - Your Version Control Expert</title>
+<style>
+body {
+  font-family: 'Nunito', sans-serif;
+  display: flex;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #42a5f5, #66bb6a);
+  color: #37474f;
+  overflow: hidden;
+}
+
+#header {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#header h1 {
+  color: #1e88e5;
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+#header p {
+  color: #555;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+#sidebar {
+  width: 280px;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  box-shadow: 3px 0 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e0e0e0;
+}
+
+#sidebar h2 {
+  color: #1e88e5;
+  margin-bottom: 30px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+}
+
+#sidebar button {
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(to right, #90caf9, #a5d6a7);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#sidebar button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+#sidebar .sidebar-section {
+  margin-bottom: 30px;
+}
+
+#sidebar .sidebar-section h3 {
+    color: #3f51b5;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+#sidebar ul li {
+  margin-bottom: 8px;
+}
+
+#sidebar ul li a {
+  color: #37474f;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+#sidebar ul li a:hover {
+  color: #1e88e5;
+}
+
+#chat-container-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#chat-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+
+#input-container {
+  display: flex;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid #e0e0e0;
+  margin: 0 20px 20px 20px;
+  border-radius: 10px;
+  box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.1);
+}
+
+#user-input {
+  flex-grow: 1;
+  padding: 14px;
+  border: 1px solid #b0bec5;
+  border-radius: 8px;
+  margin-right: 20px;
+  font-size: 16px;
+  color: #37474f;
+  transition: border-color 0.3s ease;
+}
+
+#user-input:focus {
+  border-color: #64b5f6;
+  outline: none;
+}
+
+#send-button {
+  padding: 14px 30px;
+  background: linear-gradient(to right, #64b5f6, #81c784);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
+}
+
+#send-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.user-message, .bot-message {
+  margin-bottom: 20px;
+  padding: 18px 25px;
+  border-radius: 25px;
+  max-width: 75%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.user-message:hover, .bot-message:hover {
+  transform: translateY(-2px);
+}
+
+.user-message {
+  text-align: right;
+  align-self: flex-end;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.bot-message {
+  text-align: left;
+  align-self: flex-start;
+  background-color: #fff3e0;
+  color: #d84315;
+}
+
+.bot-message strong {
+  color: #ff6f00;
+  font-weight: 700;
+}
+
+code {
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-family: monospace;
+}
+
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="header">
+  <h1>GitGuide AI</h1>
+  <p style="font-size:12px">Your personal Git and version control assistant.</p>
+</div>
+
+<div id="sidebar">
+  <h2>Quick Commands</h2>
+    <p style="font-size: 14px; margin-bottom: 20px;">Explore common Git commands and topics quickly.</p>
+
+  <button onclick="presetQuestion('explain git init')">Git Init</button>
+  <button onclick="presetQuestion('how to create a branch')">Create Branch</button>
+  <button onclick="presetQuestion('what is git merge and how to use it')">Git Merge</button>
+  <button onclick="presetQuestion('git revert vs git reset')">Revert vs Reset</button>
+  <button onclick="presetQuestion('resolve a merge conflict')">Merge Conflict</button>
+  <button onclick="presetQuestion('explain pull requests')">Pull Requests</button>
+
+  <div class="sidebar-section">
+    <h3>Git Basics</h3>
+    <ul>
+      <li><a href="#" onclick="presetQuestion('what is version control')">Version Control</a></li>
+      <li><a href="#" onclick="presetQuestion('what is git')">What is Git?</a></li>
+      <li><a href="#" onclick="presetQuestion('what is a repository')">Repository</a></li>
+    </ul>
+  </div>
+
+  <div class="sidebar-section">
+    <h3>Branching</h3>
+    <ul>
+      <li><a href="#" onclick="presetQuestion('how to create a branch')">Create Branch</a></li>
+      <li><a href="#" onclick="presetQuestion('what is merge')">Merge</a></li>
+    </ul>
+  </div>
+</div>
+
+<div id="chat-container-wrapper">
+  <div id="chat-container"></div>
+  <div id="input-container">
+    <input type="text" id="user-input" placeholder="Ask me anything about Git...">
+    <button id="send-button">Send</button>
+  </div>
+</div>
+
+<script>
+const chatContainer = document.getElementById("chat-container");
+const userInput = document.getElementById("user-input");
+const sendButton = document.getElementById("send-button");
+
+const responses = {
+  "explain git init": ["<code>git init</code> initializes a new Git repository. This command sets up the necessary files and directories for Git to track your project's changes. It creates a hidden .git directory in your project root, which stores all the repository's metadata and object database.", "Running <code>git init</code> transforms your current directory into a Git repository. This command is the first step in starting any Git project, allowing you to begin version control."],
+  "how to create a branch": ["Use <code>git branch [branch-name]</code> to create a new branch. To switch to it, use <code>git checkout [branch-name]</code>. Alternatively, you can create and switch to a new branch in one step with <code>git checkout -b [branch-name]</code>.", "Creating branches is essential for working on features or fixes without affecting the main codebase. Start by using <code>git branch [name]</code>, then switch to it using <code>git checkout [name]</code> or combine both with <code>git checkout -b [name]</code>."],
+  "what is git merge and how to use it": ["<code>git merge</code> integrates changes from one branch into another. First, checkout the target branch where you want to apply the changes, then use <code>git merge [branch-name]</code> to combine the changes.", "Merging is a crucial operation in Git. It allows you to combine the work done on different branches into a single branch. To use it, switch to the branch you want to merge into, and then run <code>git merge [other_branch]</code>."],
+  "git revert vs git reset": ["<code>git revert</code> creates a new commit that undoes the changes made in a previous commit, preserving the project's history. <code>git reset</code> moves the current branch pointer to a specified commit, potentially discarding history. Use revert for shared branches and reset for local changes.", "Understanding the difference is key: <code>git revert</code> safely undoes commits by adding new ones, while <code>git reset</code> rewrites history by moving the branch pointer. Use revert when you need to preserve history and reset when working locally."],
+  "resolve a merge conflict": ["Merge conflicts occur when changes on different branches affect the same lines of a file. To resolve them, manually edit the conflicting files to choose which changes to keep, then use <code>git add</code> and <code>git commit</code> to finalize the merge.", "When Git can't automatically merge changes, you'll need to resolve conflicts manually. Open the files showing conflicts, edit them to your liking, then stage and commit the changes."],
+  "explain pull requests": ["Pull requests are used to propose changes to a repository and request that they be merged. They provide a platform for code review and discussion before integrating changes into the main codebase.", "Pull requests are a feature of platforms like GitHub and GitLab. They allow you to propose changes in a branch and ask for feedback before merging them. They are a core part of collaborative Git workflows."],
+  "hello": ["Hello! Welcome to GitGuide AI. How can I assist you with version control today?", "Hi there! I'm here to help you navigate the world of Git. What questions do you have?"],
+  "hi": ["Hey! What Git questions do you have for me today?", "Greetings! Let's dive into Git. What can I help you with?"],
+  "what is version control": ["Version control is a system that records changes to a file or set of files over time so that you can recall specific versions later. It's essential for collaborative software development.", "Version control systems track changes to your project's files, allowing you to revert to previous states and manage different versions of your code."],
+  "what is git": ["Git is a distributed version control system for tracking changes in computer files and coordinating work on those files among multiple people. It's widely used for software development and other version control tasks.", "Git is a powerful tool used for version control. It helps you manage and track changes to your project, making collaboration and code management efficient."],
+  "what is a repository": ["A repository, or repo, is a storage location for your project files and their revision history. It can be local on your computer or hosted remotely on platforms like GitHub.", "A repository is where your project lives. It contains all the files, folders, and the history of changes made to your project. It's the central place for version control."],
+  "what is a commit": ["A commit is a snapshot of your changes in the repository at a specific point in time. It records the changes you've made since the last commit and adds them to the project's history.", "Commits are the building blocks of Git's version history. Each commit represents a saved state of your project. It allows you to revert to any previous state."],
+  "what is a branch": ["A branch is a parallel version of your repository that allows you to work on features or fixes without affecting the main codebase. It's a way to keep your work organized and isolated.", "Branches are used to develop features, fix bugs, or experiment with new ideas without disrupting the main branch. They allow for parallel development and keep the main branch stable."],
+  "what is merge": ["Merging combines changes from one branch into another. It's how you integrate new features or fixes into the main branch or other branches in your repository.", "Merging is the process of taking the changes from one branch and applying them to another branch. It's essential for integrating new code into your project."],
+  "bye": ["Goodbye! Keep your repositories clean and organized. Happy coding!", "See you later! Feel free to return if you have more Git questions."],
+  "goodbye": ["Farewell! Remember to commit regularly and use branches effectively. Until next time!", "Until next time! Keep your repositories organized and don't hesitate to ask if you need more help."],
+  "default": [
+      "Could you please rephrase your question? I'm still under development and learning new things every day.",
+      "I'm not quite sure what you mean. Could you provide more context or try asking in a different way?",
+      "My Git knowledge is growing, but I didn't catch that. Could you try a different way of asking or provide more details?",
+      "I am currently unable to answer that question. Please try a different question related to Git version control.",
+      "Sorry, I didn't understand that. Could you please provide more details or ask a more specific question?",
+  ]
+};
+
+const keywords = {
+  "init": "explain git init",
+  "branch": "how to create a branch",
+  "merge": "what is git merge and how to use it",
+  "revert": "git revert vs git reset",
+  "reset": "git revert vs git reset",
+  "conflict": "resolve a merge conflict",
+  "pull request": "explain pull requests",
+  "repository": "what is a repository",
+  "commit": "what is a commit",
+  "version control": "what is version control",
+  "git": "what is git",
+  "hello": "hello",
+  "hi": "hi",
+  "bye": "bye",
+  "goodbye": "goodbye"
+};
+
+let conversationHistory = [];
+
+function appendMessage(message, className) {
+  const messageElement = document.createElement("div");
+  messageElement.innerHTML = message;
+  messageElement.classList.add(className);
+  chatContainer.appendChild(messageElement);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+function getBotResponse(message) {
+  const lowerMessage = message.toLowerCase();
+  let matchedKeyword = null;
+
+  if (lowerMessage.includes("create branch") || lowerMessage.includes("make branch")) {
+    matchedKeyword = "how to create a branch";
+  } else if (lowerMessage.includes("merge branches") || lowerMessage.includes("combine branches")) {
+    matchedKeyword = "what is git merge and how to use it";
+  } else if (lowerMessage.includes("undo commit") || lowerMessage.includes("reverse changes")) {
+    matchedKeyword = "git revert vs git reset";
+  } else if (lowerMessage.includes("fix conflict") || lowerMessage.includes("resolve conflicts")) {
+    matchedKeyword = "resolve a merge conflict";
+  } else if (lowerMessage.includes("propose changes") || lowerMessage.includes("code review")) {
+    matchedKeyword = "explain pull requests";
+  } else {
+    for (const keyword in keywords) {
+      if (lowerMessage.includes(keyword)) {
+        matchedKeyword = keywords[keyword];
+        break;
+      }
+    }
+  }
+
+  if (matchedKeyword) {
+    const randomIndex = Math.floor(Math.random() * responses[matchedKeyword].length);
+    return responses[matchedKeyword][randomIndex];
+  } else {
+    const randomIndex = Math.floor(Math.random() * responses["default"].length);
+    return responses["default"][randomIndex];
+  }
+}
+
+sendButton.addEventListener("click", () => {
+  const userMessage = userInput.value;
+  if (userMessage.trim() !== "") {
+    appendMessage(userMessage, "user-message");
+    conversationHistory.push({ role: "user", content: userMessage });
+    userInput.value = "";
+    setTimeout(() => {
+      const botResponse = getBotResponse(userMessage);
+      appendMessage(botResponse, "bot-message");
+      conversationHistory.push({ role: "bot", content: botResponse });
+    }, 500);
+  }
+});
+
+userInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    sendButton.click();
+  }
+});
+
+function presetQuestion(question) {
+  userInput.value = question;
+  sendButton.click();
+}
+</script>
+
+</body>
+</html>
